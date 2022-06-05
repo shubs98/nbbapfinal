@@ -9,6 +9,7 @@
         })();
     </script>
     <script type="text/javascript">
+        let ms = document.getElementById("mailSend");
         window.onload = function() {
             document.getElementById('contact-form').addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -18,8 +19,14 @@
                 emailjs.sendForm('contact_service', 'contact_form', this)
                     .then(function() {
                         console.log('SUCCESS!');
+                        document.getElementById("contact-form").reset();
+                        document.getElementById("mailSend").style.display = "block";
                     }, function(error) {
                         console.log('FAILED...', error);
+                        document.getElementById("contact-form").reset();
+                        document.getElementById("mailSend").innerHTML = "&nbsp;&nbsp; Er is een fout opgetreden!";
+                        document.getElementById("mailSend").style.backgroundColor = "rgba(255, 0, 0, 0.641)";
+                        document.getElementById("mailSend").style.display = "block";
                     });
             });
         }
@@ -44,8 +51,9 @@
             <p>Hebt u vragen over de werking van de applicatie, twijfel dan zeker niet om ons te contacteren.</p>
             <p>Als u het volledige NBBAP-team wilt bereiken kan dat ook via deze weg.</p>
             <p>Wilt u de medewerkers van deze applicatie individueel contacteren gelieve dit dan te doen via de <a href="/about">'about'</a> pagina.</p>
-        <br><br></div>
-        <br><br>
+        <br><br></div><br>
+        <div id="mailSend">&nbsp;&nbsp;&#10004; bericht verzonden!</div>
+        <br>
         <p><strong>Bericht sturen</strong></p><br>
         <form id="contact-form">
             <input type="hidden" name="contact_number">

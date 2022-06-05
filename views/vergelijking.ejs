@@ -9,8 +9,6 @@
         display: flex;
         justify-content: space-around;
     };
-  
-   
 </style>
 <body>
     <style>
@@ -36,15 +34,10 @@ input[type=number] {
             </ul>  
         </nav>
     <div class="vergelijk">
-        <form action="/" method="post">
-            <label for="ondernemingsnummers">Ondernemingsnummer:</label>
-            <input type="number" id="ondernemingsnummer1" name="ondernemingsnummer1"  style="width: 350px;" required><br><br>
-            <button type="submit" class="vergelijkButton"> Vergelijk </button><br>
-            <br>
-            <label for="ondernemingsnummers">Ondernemingsnummer:</label>
-            <input type="number" id="ondernemingsnummer2" name="ondernemingsnummer2"  style="width: 350px;" required>
-        </form>
-
+        <br>
+        <section>
+        <strong>Vergelijking</strong><br><br>
+        <div style="border-bottom: 1px solid black"></div><br>
         <div class="container">
         
 
@@ -134,13 +127,25 @@ input[type=number] {
                 <strong>Bedrijfswinst</strong><div <%- o2Winst %>  class="floatRight"><%= bedrijven[1].bedrijfsWinst %></div><br>
         </div>
     </div>
+    <strong>Opnieuw vergelijken</strong><br><br>
+    <div style="border-bottom: 1px solid black"></div><br><br>
+    <form action="/" method="post">
+        <label for="ondernemingsnummers">Ondernemingsnummer:</label>
+        <input type="number" id="ondernemingsnummer1" name="ondernemingsnummer1"  style="width: 350px;" required><br><br>
+        <button type="submit" class="vergelijkButton"> Vergelijk </button><br>
+        <br>
+        <label for="ondernemingsnummers">Ondernemingsnummer:</label>
+        <input type="number" id="ondernemingsnummer2" name="ondernemingsnummer2"  style="width: 350px;" required>
+    </form><br>
+</section>
 
-
-    </div> 
+     
+    <section>
     <p>*Hieronder vind u ondernemingsnummers die in de database zijn opgeslagen.</p>
-    <p>LET OP: Deze ondernemingsnummer missen vanvoor een '0', zet deze er dus zelf nog voor.</p><br>
+    <p>LET OP: Deze ondernemingsnummer op de foto missen vanvoor een '0', zet deze er dus zelf nog voor.</p><br>
             <img src="/public/ondernemingen.png" width="500">
-
+        </section>
+        </div>
     <%- include('./partials/footer.ejs') %>
     
 </body>

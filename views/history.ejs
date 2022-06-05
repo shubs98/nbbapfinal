@@ -20,22 +20,24 @@
             border-radius: .5em;
             text-decoration: none;
             background: white;
-            padding: 2.75em 2.5em;
+            padding: 2.5em 2.5em;
             transition: transform .45s ease, background .45s ease;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-            margin: 1.5em auto;
+            margin: 1.5em;
+            text-align: left;
         }
 
         .section-img {
             height: 75px;
             width: 75px;
+            float: left;
         }
 
         .section-title-img-container {
             display: flex;
-            align-content: center;
+            align-content: left;
             justify-content: center;
-            align-items: center;
+            align-items: left;
         }
 
         .section-title-img-container :last-child {
@@ -53,22 +55,35 @@
             align-self: flex-start;
             padding-top: 5px;
         }
-
-        .cijfers {
-            height: 150px;
+        .cijfers{
+            height: 0px;
             display: block;
+            transition: all .5s;
         }
-
         .arrow {
             border: solid black;
             border-width: 0 3px 3px 0;
             display: inline-block;
             padding: 3px;
         }
+        .displayBlock{
+            height: 170px;
+        }
 
         .right {
             transform: rotate(-45deg);
             -webkit-transform: rotate(-45deg);
+        }
+        button{
+            background-color: #45a049;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #45a049;
         }
 
         h3 {
@@ -82,34 +97,8 @@
         p {
             padding-left: 15px;
         }
-
-        #overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        #modal {
-            max-width: 600px;
-            height: 300px;
-            margin: auto;
-            background-color: white;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-        #close-modal-btn {
-            float:  right;
-        }
     </style>
-
+    
 
     <body>
         <nav>
@@ -124,166 +113,91 @@
         </nav>
         <section>
             <h1>History</h1>
+            
+            
+            <a style="float: right" href="/removehistory">Geschiedenis verwijderen</a><br><br>
+        
 
-            <a style="float: right" href="/removehistory">Remove History</a><br><br>
+        
 
+        
+        
 
-            <div class="search-box">
-                <input type="text" placeholder="search" class="search">
+        <% if(bedrijvenInDB.length==0){%>
+            <div>There is no History in the database.</div>
+            <% } %>
 
-            </div>
-
-
-
-
-            <% if(bedrijvenInDB.length==0){%>
-                <div>There is no History in the database.</div>
-                <% } %>
-
-                    <div class="page-container">
-                        <% let index=0; bedrijvenInDB.forEach(e=> {
+                <div class="page-container">
+                    <% 
+                        let index = 0;
+                        bedrijvenInDB.forEach(e=> {
                             index++;
-                            %>
+                        %>
 
-                            
-                            <section class="section-container">
-                                
-                                <div class="section-title-img-container">
-                                    <img class="section-img"
-                                        src="https://img.freepik.com/free-vector/home-icon-house-symbol-simple-vector-design-logo_231786-5048.jpg?w=2000"
-                                        alt="">
+                        <section class="section-container">
+                            <div class="section-title-img-container">
+                                <img class="section-img"
+                                src="https://img.freepik.com/free-vector/home-icon-house-symbol-simple-vector-design-logo_231786-5048.jpg?w=2000"
+                                    alt="">
 
-                                    <div class="section-title-desc">
-                                        <h3>
-                                            <%= e.name %>
-                                        </h3>
+                                <div class="section-title-desc">
+                                    <h3>
+                                        <%= e.name %>
+                                    </h3>
 
-                                        <br />
-                                        <p>
-                                            <%= e.address %>
-                                                <br />
-                                        </p>
-                                    </div>
-                                    <div class="section-date">
-                                        <p>
-                                            <%= e.datumNeerlegging %> <button  class="read_more"id="show-modal-btn">Meer tonen</button>
-                                        </p>
-                                    </div>
-
+                                    <br />
+                                    <p>
+                                        <%= e.address %> &nbsp;&nbsp;<br><button style="float: left;" id="btn<%= index %>" onclick="seeNumbers()" >Meer</button>
+                                            <br />
+                                    </p>
                                 </div>
-                                <div class="cijfers">cijfers</div>
-                                <div id="overlay">
-
-                                    <div id="modal">
-
-                                        <button id="close-modal-btn">Close</button>
-                                        <p class="extra_content">
-                                            <br>
-                                            <br>
-                                            <h1>Naam <%= e.name %> </h1>
-                                            <h1>Adres <%= e.address %></h1><br>
-
-                                            <h3>Datumneerlegging <%= e.datumNeerlegging %></h3> <br>
-                                           <h3> Eigenvermogen <%= e.eigenVermogen %></h3> <br>
-                                           <h3> Schulden <%= e.schulden %> </h3> <br>
-                                           <h3> Bedrijfwinst <%= e.bedrijfsWinst %> </h3> <br>
-                                           
-                                        </p>
-                                        
-
-                                    </div>
+                                <div class="section-date">
+                                    <p>
+                                        <%= e.datumNeerlegging %> 
+                                    </p>
                                 </div>
-                               
 
-                            </section>
-                            
-                            <% }); %>
-                    </div>
-        </section>
+                            </div>
+                            <div class="cijfers"><br><br>
+                                <p><strong>Eigen Vermogen: </strong><script>returnValutaString(2905049.4334)</script><%= e.eigenVermogen %></p><br>
+                                <p><strong>Schulden: </strong><%= e.schulden %></p><br>
+                                <p><strong>Bedrijfswinst: </strong><%= e.bedrijfsWinst %></p><br>
+                                <p><strong>Datum neerlegging: </strong><%= e.datumNeerlegging %></p>
+                            </div>
 
-        <%- include('./partials/footer.ejs') %>
-            <script>
-                
+                        </section>
+                        <% }); %>
+                </div>
+            </section>
 
-                // var btn1;
-                // document.addEventListener('DOMContentLoaded', load);
-                // function load() {
-                //     console.log("function load");
-                //     document.body.innerHTML += overlay.style.display = "block";
-                //     bt1 = document.getElementById('show-modal-btn');
-                //     bt1.onclick = clicked;
-
-                // }
-
-                // function clicked() {
-                //     document.body.insertAdjacentHTML('beforeend', '<div>welcome</div>');
-
-                // }
-
-                
-                 var overlay = document.querySelector('#overlay');
-                // var button = document.querySelectorAll("#read_more")
-               
-                // button.addEventListener("click", () => {
-                // console.log(" in query selector meer info");
-                // overlay.style.display = "block";
-                // })
-                // button.addEventListener("click", () => {
-                // overlay.style.display = "none";
-                // }) 
+                <%- include('./partials/footer.ejs') %>
+                <script>
                     
-                // }
-                // const button = document.getElementById('.show-modal-btn')
-                // button.addEventListener('click',clickable)
-
-            /*    function clickable(e){
-                    console.log("it is clicked")
-                }
-                */
-                window.onload = function(){
-                    var buttonlist = document.querySelectorAll('#show-modal-btn');
-                    for (let index = 0; index < buttonlist.length; index++) {
-                        // console.log(buttonlist[index] + " is a button" + index)
-                        buttonlist[index].addEventListener("click",()=>{
-                            console.log("im in it")
-                            overlay.style.display = "block"
-                        })
-                        
-                    }
-                    
-                    // button.addEventListener('click', clickable);
-
-                }
-                document.querySelector("#close-modal-btn").addEventListener("click",()=>{
-                    console.log("in close button")
-                    overlay.style.display = "none"
                    
 
-                })
+                    function returnValutaString(n){
+                        let result = " € " + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                        return(result)
+                    }
 
-                var infos = document.getElementsByClassName("extra_content");
-                for (let i = 0; i < infos.length; i++) {
-                         
-}
-                // window.onload = function(){
-                //     var buttonlist = document.querySelectorAll('#close-modal-btn');
-                //     for (let index = 0; index < buttonlist.length; index++) {
-                //         // console.log(buttonlist[index] + " is a button" + index)
-                //         buttonlist[index].addEventListener("click",()=>{
-                            
-                //             overlay.style.display = "none"
-                //         })
-                        
-                //     }
+                    console.log(returnValutaString(2905049.4334));
                     
-                //     // button.addEventListener('click', clickable);
-
-                // }
 
 
-               
-            </script>
+                    
+                    
+                    
+                    function seeNumbers(){
 
+                    let allCijfers = document.getElementsByClassName("cijfers");
+
+                    let idOfBtn = event.target.id;
+                    let lastCharOfId = idOfBtn.charAt(idOfBtn.length-1);
+                    
+                    allCijfers[lastCharOfId-1].classList.toggle("displayBlock");
+
+                    }
+                </script>
     </body>
 
 </html>

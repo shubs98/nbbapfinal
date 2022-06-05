@@ -49,9 +49,9 @@ interface OndernemingVoorDB{
     name: string,
     address: string,
     datumNeerlegging: string,
-    eigenVermogen: number,
-    schulden: number,
-    bedrijfsWinst: number
+    eigenVermogen: any,
+    schulden: any,
+    bedrijfsWinst: any
 }
 
 let OndernemingenInDB: OndernemingVoorDB[] = [];
@@ -252,6 +252,11 @@ app.get('/contact', (req:any, res:any) => {
     res.render('contact');
 });
 
+const returnValutaString = (n: number) => {
+    let result = " € " + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    return(result);
+}
+
 app.get('/history',(req:any,res:any)=>{
 
     //let bedrijvenInDB: OndernemingVoorDB[] = [];
@@ -264,6 +269,18 @@ app.get('/history',(req:any,res:any)=>{
 
             let ondernemingenCollection = client.db("ITproject").collection("Ondernemingen");
             let allOndernemingen = await ondernemingenCollection.find({}).toArray();
+            
+            
+
+            for(let a =0;a<allOndernemingen.length;a++){
+                
+                let arrayMultiple = await ondernemingenCollection.find({name: allOndernemingen[a].name}).toArray();
+
+                console.log(arrayMultiple);
+            }
+
+            
+
             OndernemingenInDB = allOndernemingen;
         }
         catch(e){
@@ -273,9 +290,22 @@ app.get('/history',(req:any,res:any)=>{
         finally{
             await client.close();
         }
-        res.render('history', {bedrijvenInDB: OndernemingenInDB});
+
         
 
+        console.log(returnValutaString(OndernemingenInDB[0].eigenVermogen));
+
+        OndernemingenInDB.forEach(e => {
+            e.eigenVermogen = returnValutaString(e.eigenVermogen);
+            e.schulden = returnValutaString(e.schulden);
+            e.bedrijfsWinst = returnValutaString(e.bedrijfsWinst);
+        });
+
+        
+
+        res.render('history', {bedrijvenInDB: OndernemingenInDB});
+        
+        
     }
 
     leesDB();
@@ -303,7 +333,7 @@ app.get('/removehistory',(req:any,res:any)=>{
     res.render('history', {bedrijvenInDB: []});
 })
 
-
+//  AP STARTUP
 
 
 
