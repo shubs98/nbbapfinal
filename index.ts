@@ -119,6 +119,7 @@ app.post('/', async (req:any, res:any) => {
         'NBB-CBSO-Subscription-Key' : '091539ea0adb414d9eb51977a6afd3a8',
         'X-Request-Id' :''
     }
+    try{
     const url = `https://ws.uat2.cbso.nbb.be/authentic/legalEntity/${req.body.ondernemingsnummer1}/references`
     const url2 = `https://ws.uat2.cbso.nbb.be/authentic/legalEntity/${req.body.ondernemingsnummer2}/references`
 
@@ -241,7 +242,10 @@ app.post('/', async (req:any, res:any) => {
         console.log('Er is een foutmelding opgetreden: ' + err.message);
         res.render('error');
     })
-
+    }
+    catch(e){
+        res.render("error");
+        }
 });
 
 app.get('/about', (req:any, res:any) =>{
