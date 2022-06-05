@@ -1,0 +1,30 @@
+{
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.34"
+  },
+  "dependencies": {
+    "ejs": "^3.1.7",
+    "express": "^4.18.0",
+    "fetch": "^1.1.0",
+    "mongodb": "^4.6.0",
+    "node-fetch": "^2.6.7",
+    "typescript": "^4.7.3",
+    "uuid": "^8.3.2"
+  },
+  "name": "nbbap",
+  "version": "1.0.0",
+  "description": "Langlopendetaak IT project",
+  "main": "app.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.apstudent.be/it-project-nbbap/nbbap.git"
+  },
+  "author": "\"Jeroen Folla\", \"Stuer Erik\", \"Prasain shubham\", \"Asmar Tiba\"",
+  "license": "ISC"
+}
