@@ -263,7 +263,7 @@ const returnValutaString = (n: number) => {
 
 app.get('/history',(req:any,res:any)=>{
 
-    //let bedrijvenInDB: OndernemingVoorDB[] = [];
+    
 
     
 
@@ -297,7 +297,7 @@ app.get('/history',(req:any,res:any)=>{
 
         
 
-        console.log(returnValutaString(OndernemingenInDB[0].eigenVermogen));
+     //   console.log(returnValutaString(OndernemingenInDB[0].eigenVermogen));
 
         OndernemingenInDB.forEach(e => {
             e.eigenVermogen = returnValutaString(e.eigenVermogen);
