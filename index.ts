@@ -340,11 +340,3 @@ app.get('/removehistory',(req:any,res:any)=>{
 //  AP STARTUP
 
 
-
-//  last
-app.use((req:any, res:any) => {
-    res.status(404).render('index');
-})
-
-
-export{};
